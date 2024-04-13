@@ -22,6 +22,7 @@
         "jasonmccreary/laravel-test-assertions": "^2.2",
         "laravel-shift/blueprint": "2",
         "laravel/sail": "^1.0.1",
+        "maddhatter/laravel-view-generator": "^0.0.9",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
         "phpunit/phpunit": "^9.5.10"
