@@ -1,37 +1,42 @@
 <?php
-
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
- * Class MenuType
- *
- * @property int $Code_mt
- * @property string $Name_mt
- *
- * @property Menu $menu
- *
- * @package App\Models
+   @property varchar $Name_mt Name mt
+@property \Illuminate\Database\Eloquent\Collection $menu belongsToMany
+
  */
 class MenuType extends Model
 {
     use HasFactory;
-	protected $table = 'menu_type';
-	protected $primaryKey = 'Code_mt';
-	public $timestamps = false;
+    /**
+    * Database table name
+    */
+    protected $table = 'menu_type';
+    public $timestamps=false;
+    /**
+    * Mass assignable columns
+    */
+    protected $fillable=['Name_mt',
+'Name_mt'];
 
-	protected $fillable = [
-		'Name_mt'
-	];
+    /**
+    * Date time columns.
+    */
+    protected $dates=[];
 
-	public function menu()
-	{
-		return $this->hasOne(Menu::class);
-	}
+    /**
+    * menus
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class,'Menu');
+    }
+
+
+
 }

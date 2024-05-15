@@ -4,19 +4,21 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+            <article>
+                <img src="images/logo.png">
+                <div class="row justify-content-left">
+                  <h1>ГБОУ "Школа-интернат 4"</h1>
+                  <p>Государственное бюджетное общеобразовательное учреждение Самарской области «Школа-интернат № 4 для обучающихся с ограниченными возможностями здоровья городского округа Тольятти»</p>
                 </div>
-            </div>
+                <div>
+                  <h3>Приложение для работы с меню школы</h3>
+                  <p>Удобное приложение для составления, редактирования, удаления и создания меню в школе интернате.</p>
+                </div>
+                <div>
+                  <h3>Что нужно чтобы начать работу с приложением?</h3>
+                  <p>Войдите в свой акканут для работы с меню школы.</p>
+                </div>
+              </article>
         </div>
     </div>
 </div>

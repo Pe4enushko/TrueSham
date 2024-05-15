@@ -1,37 +1,42 @@
 <?php
-
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
- * Class Month
- *
- * @property int $Code_month
- * @property string $Name_month
- *
- * @property Menu $menu
- *
- * @package App\Models
+   @property varchar $Name_month Name months
+@property \Illuminate\Database\Eloquent\Collection $menu belongsToMany
+
  */
 class Month extends Model
 {
     use HasFactory;
-	protected $table = 'month';
-	protected $primaryKey = 'Code_month';
-	public $timestamps = false;
+    /**
+    * Database table name
+    */
+    protected $table = 'month';
+    public $timestamps=false;
+    /**
+    * Mass assignable columns
+    */
+    protected $fillable=['Name_month',
+'Name_month'];
 
-	protected $fillable = [
-		'Name_month'
-	];
+    /**
+    * Date time columns.
+    */
+    protected $dates=[];
 
-	public function menu()
-	{
-		return $this->hasOne(Menu::class);
-	}
+    /**
+    * menus
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class,'Menu');
+    }
+
+
+
 }

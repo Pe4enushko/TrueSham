@@ -1,44 +1,43 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
-class User extends Authenticatable
+/**
+   @property varchar $name name
+@property varchar $email email
+@property timestamp $email_verified_at email verified at
+@property varchar $password password
+@property varchar $remember_token remember token
+@property timestamp $created_at created at
+@property timestamp $updated_at updated at
+
+ */
+class User extends Model implements \Illuminate\Contracts\Auth\Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Authenticatable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    * Database table name
+    */
+    protected $table = 'users';
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    * Mass assignable columns
+    */
+    protected $fillable=['name',
+'email',
+'password',
+'email_verified_at'];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    * Date time columns.
+    */
+    protected $dates=['email_verified_at'];
+
+
+
+
 }

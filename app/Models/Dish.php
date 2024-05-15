@@ -1,74 +1,84 @@
 <?php
-
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
- * Class Dish
- *
- * @property int $Code_dish
- * @property int $Code_ufm
- * @property string $Name_dish
- * @property string $Description
- * @property int $Calorie
- * @property int $Price
- * @property int $Code_tod
- *
- * @property TypeOfDish $type_of_dish
- * @property Ufm $ufm
- * @property Menu $menu
- * @property Collection|Product[] $products
- *
- * @package App\Models
+   @property int $Code_ufm Code ufm
+@property varchar $Name_dish Name dishes
+@property varchar $Description Description
+@property int $Calorie Calorie
+@property int $Price Price
+@property int $Code_tod Code tod
+@property CodeTod $typeOfDish belongsTo
+@property CodeUfm $ufm belongsTo
+@property \Illuminate\Database\Eloquent\Collection $menu belongsToMany
+@property \Illuminate\Database\Eloquent\Collection $productsby belongsToMany
+
  */
 class Dish extends Model
 {
     use HasFactory;
-	protected $table = 'dish';
-	protected $primaryKey = 'Code_dish';
-	public $timestamps = false;
+    /**
+    * Database table name
+    */
+    protected $table = 'dish';
 
-	protected $casts = [
-		'Code_ufm' => 'int',
-		'Calorie' => 'int',
-		'Price' => 'int',
-		'Code_tod' => 'int'
-	];
+    /**
+    * Mass assignable columns
+    */
+    protected $fillable=['Code_tod',
+'Code_ufm',
+'Name_dish',
+'Description',
+'Calorie',
+'Price',
+'Code_tod'];
 
-	protected $fillable = [
-		'Code_ufm',
-		'Name_dish',
-		'Description',
-		'Calorie',
-		'Price',
-		'Code_tod'
-	];
+    /**
+    * Date time columns.
+    */
+    protected $dates=[];
+    public $timestamps=false;
+    /**
+    * codeTod
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+    public function codeTod()
+    {
+        return $this->belongsTo(TypeOfDish::class,'Code_tod');
+    }
 
-	public function type_of_dish()
-	{
-		return $this->belongsTo(TypeOfDish::class, 'Code_tod');
-	}
+    /**
+    * codeUfm
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+    public function codeUfm()
+    {
+        return $this->belongsTo(Ufm::class,'Code_ufm');
+    }
 
-	public function ufm()
-	{
-		return $this->belongsTo(Ufm::class, 'Code_ufm');
-	}
+    /**
+    * menus
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class,'Menu');
+    }
+    /**
+    * productsbies
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function productsbies()
+    {
+        return $this->belongsToMany(Productsby::class,'products_by_dish');
+    }
 
-	public function menu()
-	{
-		return $this->hasOne(Menu::class);
-	}
 
-	public function products()
-	{
-		return $this->belongsToMany(Product::class, 'products_by_dish')
-					->withPivot('ufm_id', 'product_count');
-	}
+
 }

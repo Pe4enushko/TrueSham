@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $cl = \App\Models\Dish::class;
+        $cl = \App\Models\Menu::class;
 
 //        $cl::query()->delete();
-        $cl::factory(50)->create();
+        $cl::factory(500)->create();
 
 //        \App\Models\MenuType::query()->delete();
 //        \App\Models\MenuType::factory(9)->create();

@@ -1,38 +1,41 @@
 <?php
-
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
- * Class TypeOfDish
- *
- * @property int $Code_tod
- * @property string $Name_tod
- *
- * @property Collection|Dish[] $dishes
- *
- * @package App\Models
+   @property varchar $Name_tod Name tod
+@property \Illuminate\Database\Eloquent\Collection $dish hasMany
+
  */
 class TypeOfDish extends Model
 {
     use HasFactory;
-	protected $table = 'type_of_dish';
-	protected $primaryKey = 'Code_tod';
-	public $timestamps = false;
+    /**
+    * Database table name
+    */
+    protected $table = 'type_of_dish';
+    public $timestamps=false;
+    /**
+    * Mass assignable columns
+    */
+    protected $fillable=['Name_tod'];
 
-	protected $fillable = [
-		'Name_tod'
-	];
+    /**
+    * Date time columns.
+    */
+    protected $dates=[];
 
-	public function dishes()
-	{
-		return $this->hasMany(Dish::class, 'Code_tod');
-	}
+    /**
+    * dishes
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function dishes()
+    {
+        return $this->hasMany(Dish::class,'Code_tod');
+    }
+
+
+
 }

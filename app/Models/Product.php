@@ -1,51 +1,55 @@
 <?php
-
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
- * Class Product
- *
- * @property int $Code_product
- * @property string $Name_product
- * @property int $Code_pt
- *
- * @property ProductType $product_type
- * @property Collection|Dish[] $dishes
- *
- * @package App\Models
+   @property varchar $Name_product Name products
+@property int $Code_pt Code pt
+@property CodePt $productType belongsTo
+@property \Illuminate\Database\Eloquent\Collection $sbydish belongsToMany
+
  */
 class Product extends Model
 {
     use HasFactory;
-	protected $table = 'product';
-	protected $primaryKey = 'Code_product';
-	public $timestamps = false;
+    /**
+    * Database table name
+    */
+    protected $table = 'product';
+    public $timestamps=false;
+    /**
+    * Mass assignable columns
+    */
+    protected $fillable=['Code_pt',
+'Name_product',
+'Code_pt'];
 
-	protected $casts = [
-		'Code_pt' => 'int'
-	];
+    /**
+    * Date time columns.
+    */
+    protected $dates=[];
 
-	protected $fillable = [
-		'Name_product',
-		'Code_pt'
-	];
+    /**
+    * codePt
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+    public function codePt()
+    {
+        return $this->belongsTo(ProductType::class,'Code_pt');
+    }
 
-	public function product_type()
-	{
-		return $this->belongsTo(ProductType::class, 'Code_pt');
-	}
+    /**
+    * sbydishes
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function sbydishes()
+    {
+        return $this->belongsToMany(Sbydish::class,'products_by_dish');
+    }
 
-	public function dishes()
-	{
-		return $this->belongsToMany(Dish::class, 'products_by_dish')
-					->withPivot('ufm_id', 'product_count');
-	}
+
+
 }
